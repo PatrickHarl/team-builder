@@ -20,14 +20,32 @@ function App() {
 
     name:'',
     email:'',
-    role:'Frontend Engineer'
+    role:'Backend Engineer'
 
   }
 
 const [teamMembers, setTeamMembers] = useState([initialTeamMember])
 const [formValues, setFormValues] = useState(initialFormValues)
-const [memberToEdit, setMemberToEdit] = useState({})
+const [memberToEdit, setMemberToEdit] = useState()
 
+const editMember = (event) => {
+
+  const chosenMemberArr = teamMembers.filter(member => {
+
+
+    if(member.id === event.target.id)
+    {
+
+      return member
+
+    }
+
+
+  })
+
+  setMemberToEdit(chosenMemberArr[0])
+
+}
 
 const onChangeText = (event) => {
 
@@ -68,7 +86,7 @@ const onSubmit = (event) => {
 
 
           return (
-          <TeamMember member={member}/>
+          <TeamMember editMember={editMember} member={member}/>
           )
 
         })
@@ -77,7 +95,7 @@ const onSubmit = (event) => {
 
       <div>
 
-        <Form values={formValues} onChangeText={onChangeText} onSubmit={onSubmit} />
+        <Form setFormValues={setFormValues} memberToEdit={memberToEdit} values={formValues} onChangeText={onChangeText} onSubmit={onSubmit} />
 
       </div>
     </div>

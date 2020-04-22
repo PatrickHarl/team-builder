@@ -1,24 +1,46 @@
 import React from 'react'
 import './Form.css'
+import { useEffect } from 'react'
 
 
 function Form(props) {
 
-    const { onSubmit, onChangeText, values } = props
+    const { setFormValues, memberToEdit, onSubmit, onChangeText, values } = props
 
+    
+    //console.log(memberToEdit)
+    useEffect(() => {
+
+        if(memberToEdit)
+        {
+        setFormValues({
+        
+            name: memberToEdit.name,
+            email: memberToEdit.email,
+            role: memberToEdit.role
+
+        })
+        }
+
+    }, [memberToEdit]) 
+
+
+
+    
+    
 
 return (
 
-    <div class='member-form'>
-        <div class='member-info'>
+    <div className='member-form'>
+        <div className='member-info'>
             <label>Name: </label>
             <input onChange={onChangeText} type='text' name='name' value={values.name} />
         </div>
-        <div class='member-info'>
+        <div className='member-info'>
             <label>Email: </label>
             <input onChange={onChangeText} type='text' name='email' value={values.email} />
         </div>
-        <div class='member-info'>
+        <div className='member-info'>
             <label>Role: </label>
             <select onChange={onChangeText} name='role' value={values.role}>
                 <option value='Frontend Engineer'>Frontend Engineer</option>
@@ -26,7 +48,7 @@ return (
                 <option value='Designer'>Designer</option>
             </select>
         </div>
-        <div class='member-info-btn'>
+        <div className='member-info-btn'>
             <button onClick={onSubmit}>Add Member</button>            
         </div>
     
